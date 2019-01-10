@@ -6,7 +6,15 @@
 
 # Bonus: What happens when you define a method in the Employee and Manager class with the same name?
 
- class Employee
+module Reportable
+  def send_report
+    puts "Sending report..."
+    # code to send report
+    puts "Email sent."
+  end
+end  
+
+class Employee
   attr_reader :first_name, :last_name, :active
   attr_writer :active
 
@@ -27,6 +35,8 @@
 end
 
 class Manager < Employee
+  include Reportable
+
   def initialize(input_options)
     super(input_options)
     @employees = input_options[:employees]
@@ -55,13 +65,12 @@ class Manager < Employee
       @employees|index|.active = false
     end  
   end
-  
-  def send_report
-    puts "Sending report..."
-    # code to send report
-    puts "Email sent."
-  end
 end
+
+class Intern < Employee
+  include Reportable
+end  
+
 
 
 employee_1 = Employee.new(
